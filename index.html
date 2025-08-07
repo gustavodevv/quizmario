@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz do Super Mario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a2e;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        #quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #2d2d44;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        h1 {
+            color: #ffcc00;
+            margin-bottom: 30px;
+        }
+        
+        .question {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #3a3a5e;
+            border-radius: 8px;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .option {
+            padding: 12px;
+            background-color: #ffcc00;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+        
+        .option:hover {
+            background-color: #ffdd33;
+        }
+        
+        .option:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .feedback {
+            min-height: 24px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        
+        .correct {
+            color: #00ff00;
+        }
+        
+        .incorrect {
+            color: #ff0000;
+        }
+        
+        #progress {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #ffcc00;
+        }
+        
+        #next-btn {
+            padding: 10px 20px;
+            background-color: #00cc00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        #next-btn:hover {
+            background-color: #00bb00;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz-container">
+        <h1>Quiz do Super Mario</h1>
+        <div id="progress">Pergunta 1 de 5</div>
+        
+        <div class="question" id="question"></div>
+        
+        <div class="options" id="options"></div>
+        
+        <div class="feedback" id="feedback"></div>
+        
+        <button id="next-btn">Próxima Pergunta →</button>
+    </div>
+
+    <script>
+        // Configuração do quiz
+        const questions = [
+            {
+                question: "Qual é o nome do irmão do Mario?",
+                options: ["Luigi", "Wario", "Yoshi", "Toad"],
+                answer: 0
+            },
+            {
+                question: "Qual inimigo aparece em castelos e lança flechas?",
+                options: ["Goomba", "Koopa Troopa", "Bowser", "Dry Bones"],
+                answer: 3
+            },
+            {
+                question: "Qual item dá ao Mario a habilidade de voar?",
+                options: ["Flor de Fogo", "Cogumelo", "Pena", "Estrela"],
+                answer: 2
+            },
+            {
+                question: "Qual é o nome da princesa que o Mario resgata?",
+                options: ["Daisy", "Peach", "Rosalina", "Pauline"],
+                answer: 1
+            },
+            {
+                question: "Em que ano foi lançado o primeiro Super Mario Bros?",
+                options: ["1983", "1985", "1987", "1990"],
+                answer: 1
+            }
+        ];
+
+        // Elementos do DOM
+        const questionEl = document.getElementById('question');
+        const optionsEl = document.getElementById('options');
+        const feedbackEl = document.getElementById('feedback');
+        const nextBtn = document.getElementById('next-btn');
+        const progressEl = document.getElementById('progress');
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        // Carrega a pergunta atual
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            questionEl.textContent = q.question;
+            optionsEl.innerHTML = '';
+            
+            q.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option';
+                button.textContent = option;
+                button.addEventListener('click', () => checkAnswer(index));
+                optionsEl.appendChild(button);
+            });
+            
+            progressEl.textContent = `Pergunta ${currentQuestion + 1} de ${questions.length}`;
+            nextBtn.style.display = 'none';
+            feedbackEl.textContent = '';
+        }
+
+        // Verifica a resposta
+        function checkAnswer(selectedIndex) {
+            const q = questions[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach(option => option.disabled = true);
+            
+            if (selectedIndex === q.answer) {
+                feedbackEl.textContent = "Correto! 🎉";
+                feedbackEl.className = "feedback correct";
+                score++;
+            } else {
+                feedbackEl.textContent = `Errado! A resposta correta é: ${q.options[q.answer]}`;
+                feedbackEl.className = "feedback incorrect";
+                options[selectedIndex].style.backgroundColor = '#ff3333';
+            }
+            
+            options[q.answer].style.backgroundColor = '#00cc00';
+            nextBtn.style.display = 'block';
+        }
+
+        // Avança para próxima pergunta
+        nextBtn.addEventListener('click', () => {
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                // Fim do quiz
+                questionEl.textContent = `Quiz completo! Sua pontuação: ${score}/${questions.length}`;
+                optionsEl.innerHTML = '';
+                nextBtn.style.display = 'none';
+                feedbackEl.textContent = '';
+                
+                if (score === questions.length) {
+                    feedbackEl.textContent = "🏆 Perfeito! Você é um expert do Mario!";
+                    feedbackEl.className = "feedback correct";
+                } else if (score >= questions.length / 2) {
+                    feedbackEl.textContent = "👍 Bom trabalho! Mas pode melhorar!";
+                    feedbackEl.className = "feedback correct";
+                } else {
+                    feedbackEl.textContent = "😢 Precisa jogar mais Mario!";
+                    feedbackEl.className = "feedback incorrect";
+                }
+            }
+        });
+
+        // Inicia o quiz
+        loadQuestion();
+    </script>
+</body>
+</html>
