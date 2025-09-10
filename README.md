@@ -9,7 +9,15 @@ Você pode visitar a versão publicada do meu portfólio aqui:
 
 ## ✨ Visão Geral do Projeto
 
-Este portfólio é uma aplicação web estática, construída com as tecnologias fundamentais do desenvolvimento web:
+Este é um quiz do Mario, onde o usuário responde perguntas relacionadas ao universo do jogo.
+
+O objetivo do projeto é:
+
+Praticar lógica de programação e estrutura de quizzes;
+Criar uma interação divertida com perguntas e respostas sobre o Mario;
+Desenvolver habilidades básicas de front-end ou console interativo, dependendo da implementação;
+
+É um projeto simples, mas que pode ser expandido futuramente com níveis de dificuldade ou integração com gráficos e animações.
 
 * **HTML5:** Estrutura semântica e acessível do conteúdo.
 * **CSS3:** Estilização moderna e responsiva, incluindo um tema dark.
