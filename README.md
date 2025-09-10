@@ -11,8 +11,6 @@ Você pode visitar a versão publicada do meu portfólio aqui:
 
 Este é um quiz do Mario, onde o usuário responde perguntas relacionadas ao universo do jogo.
 
-O objetivo do projeto é:
-
 Praticar lógica de programação e estrutura de quizzes;
 Criar uma interação divertida com perguntas e respostas sobre o Mario;
 Desenvolver habilidades básicas de front-end ou console interativo, dependendo da implementação;
