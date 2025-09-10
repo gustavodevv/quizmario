@@ -4,7 +4,7 @@ Olá! Bem-vindo(a) ao meu Quiz do Mario. Este projeto foi desenvolvido para apre
 
 ## 🔗 Acesse o Quiz do Mario
 
-Você pode visitar a versão publicada do meu portfólio aqui:
+Você pode visitar a versão publicada do meu Quiz do Mario aqui:
 [**Acesse meu Quiz do Mario aqui!**](https://gustavodevv.github.io/quizmario/)
 
 ## ✨ Visão Geral do Projeto
